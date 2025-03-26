@@ -25,8 +25,8 @@ class Profile extends Component
     {
         $this->name = Auth::user()->name;
         $this->email = Auth::user()->email;
-        $this->gender = Auth::user()->memberships->gender->value ?? null;
-        $this->no_whatsapp = Auth::user()->memberships->no_whatsapp ?? null;
+        $this->gender = Auth::user()->memberships->gender->value ?? 'male';
+        $this->no_whatsapp = Auth::user()->memberships->no_whatsapp ?? '0';
     }
 
     /**
@@ -60,7 +60,6 @@ class Profile extends Component
                 'no_whatsapp' => $validated['no_whatsapp'],
             ]);
         }
-
 
         $user->save();
 
