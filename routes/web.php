@@ -62,7 +62,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('manage-carousel', [CarouselController::class, 'index'])->name('manage-carousel')->middleware('role:super_admin|admin');
     Route::get('manage-carousel/create', [CarouselController::class, 'create'])->name('manage-carousel.create')->middleware('role:super_admin|admin');
+    Route::post('manage-carousel/store', [CarouselController::class, 'store'])->name('manage-carousel.store')->middleware('role:super_admin|admin');
     Route::get('manage-carousel/edit/{carousel}', [CarouselController::class, 'edit'])->name('manage-carousel.edit')->middleware('role:super_admin|admin');
+    Route::put('manage-carousel/update/{carousel}', [CarouselController::class, 'update'])->name('manage-carousel.update')->middleware('role:super_admin|admin');
     Route::delete('manage-carousel/destroy/{carousel}', [CarouselController::class, 'destroy'])->name('manage-carousel.destroy')->middleware('role:super_admin|admin');
 
     Route::get('info-gym', [InfoGymController::class, 'index'])->name('info-gym')->middleware('role:super_admin|admin');

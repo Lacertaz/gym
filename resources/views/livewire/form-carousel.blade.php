@@ -9,9 +9,8 @@
         </fieldset>
 
         <div>
-            <fieldset class="fieldset" x-data="{ isUploading: false, progress: 0 }"
-                x-on:livewire-upload-start="isUploading = true" x-on:livewire-upload-finish="isUploading = false"
-                x-on:livewire-upload-error="isUploading = false"
+            <fieldset class="fieldset" x-data="{ isUploading: false, progress: 0 }" x-on:livewire-upload-start="isUploading = true"
+                x-on:livewire-upload-finish="isUploading = false" x-on:livewire-upload-error="isUploading = false"
                 x-on:livewire-upload-progress="progress = $event.detail.progress">
                 <legend class="fieldset-legend">Gambar</legend>
                 <input type="file" class="file-input w-full" wire:model="image" />

@@ -11,7 +11,7 @@ class StoreCarouselRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,19 @@ class StoreCarouselRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'min:3'],
+            'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'The name field is required.',
+            'name.min' => 'The name field must be at least 3 characters.',
+            'image.required' => 'The image field is required.',
+            'image.image' => 'The image field must be an image.',
+            'image.mimes' => 'The image field must be a file of type: jpeg, png, jpg, gif, svg.',
         ];
     }
 }
