@@ -2,15 +2,12 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-
-use App\RoleType;
 use Illuminate\Support\Str;
+use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -67,16 +64,16 @@ class User extends Authenticatable
         return $this->hasOne(Membership::class);
     }
 
-    public function getRoleNameAttribute()
-    {
-        if ($this->hasRole(RoleType::SUPER_ADMIN)) {
-            return RoleType::SUPER_ADMIN->label();
-        } elseif ($this->hasRole(RoleType::ADMIN)) {
-            return RoleType::ADMIN->label();
-        } elseif ($this->hasRole(RoleType::USER)) {
-            return RoleType::USER->label();
-        } else {
-            return "Tidak ada Role";
-        }
-    }
+    // public function getRoleNameAttribute()
+    // {
+    //     if ($this->hasRole(RoleType::SUPER_ADMIN)) {
+    //         return RoleType::SUPER_ADMIN->label();
+    //     } elseif ($this->hasRole(RoleType::ADMIN)) {
+    //         return RoleType::ADMIN->label();
+    //     } elseif ($this->hasRole(RoleType::USER)) {
+    //         return RoleType::USER->label();
+    //     } else {
+    //         return "Tidak ada Role";
+    //     }
+    // }
 }

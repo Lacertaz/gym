@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreLogMembershipRequest;
-use App\Http\Requests\UpdateLogMembershipRequest;
-use App\LogMembershipStatusType;
 use App\MembershipStatus;
-use App\Models\LogMembership;
 use App\Models\Membership;
 use Illuminate\Http\Request;
+use App\Models\LogMembership;
+use App\LogMembershipStatusType;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreLogMembershipRequest;
+use App\Http\Requests\UpdateLogMembershipRequest;
 
 class LogMembershipController extends Controller
 {
@@ -32,7 +32,7 @@ class LogMembershipController extends Controller
                 $query->where('name', 'like', '%'.$request->keyword.'%');
             });
 
-        if (Auth::user()->role == 'user') {
+        if (Auth::user()->getRoleNames()->first() == 'user') {
             $extend_memberships->where('membership_id', Auth::user()->memberships->id);
         }
 

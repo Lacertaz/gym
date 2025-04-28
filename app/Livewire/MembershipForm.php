@@ -68,6 +68,7 @@ class MembershipForm extends Component
         ])
             ->assignRole(RoleType::USER->value);
 
+
         Membership::create([
             'user_id' => $user->id,
             'gender' => $validated['gender'],
