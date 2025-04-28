@@ -2,21 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\RegistrationRequest;
-use App\LogMembershipStatusType;
-use App\MembershipStatus;
-use App\Models\Carousel;
-use App\Models\GymPackage;
-use App\Models\InfoGym;
-use App\Models\LogMembership;
-use App\Models\Membership;
-use App\Models\User;
-use App\RoleType;
 use Exception;
-use Illuminate\Http\JsonResponse;
+use App\RoleType;
+use App\Models\User;
+use App\Models\InfoGym;
+use App\Models\Carousel;
+use App\MembershipStatus;
+use App\Models\GymPackage;
+use App\Models\Membership;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\LogMembership;
+use App\LogMembershipStatusType;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\RegistrationRequest;
 use Illuminate\Validation\ValidationException;
 
 class LandingController extends Controller
@@ -40,13 +42,18 @@ class LandingController extends Controller
                 'password' => Hash::make($request->validated()['password']),
             ])->assignRole(RoleType::USER->value);
 
+            $new_no_wa = $this->sanitizeNoWhatsapp($request->validated()['no_whatsapp']);
+
+            $kartu_identitas_file = Storage::disk('public')->put('kartu_identitas', $request->file('kartu_identitas_file'));
+
             $memberships = Membership::create([
                 'user_id' => $user->id,
                 'gender' => $request->validated()['gender'],
                 'member_type' => $request->validated()['member_type'],
                 'join_date' => now(),
                 'expired_date' => now(),
-                'no_whatsapp' => $request->validated()['no_whatsapp'],
+                'no_whatsapp' => $new_no_wa,
+                'kartu_identitas_file' => $kartu_identitas_file,
                 'status' => MembershipStatus::NEW->value,
             ]);
 
@@ -92,5 +99,32 @@ class LandingController extends Controller
         $gym_packages = GymPackage::where('member_type', $request->member_type)->get();
 
         return response()->json($gym_packages);
+    }
+
+    protected function sanitizeNoWhatsapp($no_whatsapp)
+    {
+        $no_whatsapp = preg_replace('/[^0-9]/', '', $no_whatsapp);
+
+        if (Str::startsWith($no_whatsapp, '+62')) {
+            $no_whatsapp = '0' . Str::substr($no_whatsapp, 3);
+        }
+
+        if (Str::startsWith($no_whatsapp, '62')) {
+            $no_whatsapp = '0' . Str::substr($no_whatsapp, 2);
+        }
+
+        if (Str::startsWith($no_whatsapp, '08+62')) {
+            $no_whatsapp = '0' . Str::substr($no_whatsapp, 5);
+        }
+
+        if (Str::startsWith($no_whatsapp, '0862')) {
+            $no_whatsapp = '0' . Str::substr($no_whatsapp, 4);
+        }
+
+        if (Str::startsWith($no_whatsapp, '0862')) {
+            $no_whatsapp = '0' . Str::substr($no_whatsapp, 4);
+        }
+
+        return $no_whatsapp;
     }
 }

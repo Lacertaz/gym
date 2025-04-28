@@ -8,11 +8,14 @@ use App\MemberType;
 use App\Models\User;
 use Livewire\Component;
 use App\Models\Membership;
+use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\Hash;
 
 class MembershipForm extends Component
 {
+    use WithFileUploads;
+
     #[Validate('required', message: 'Nama member harus diisi')]
     public string $name;
 
@@ -27,6 +30,10 @@ class MembershipForm extends Component
 
     #[Validate('required', message: 'Nomor WhatsApp harus diisi')]
     public string $no_whatsapp;
+
+    #[Validate('required', message: 'Kartu identitas harus diupload')]
+    #[Validate('image', message: 'Kartu identitas hanya dapat berupa gambar')]
+    public $kartu_identitas_file;
 
     #[Validate('required', message: 'Email harus diisi')]
     #[Validate('email:rfc,dns', message: 'Email harus valid')]
@@ -51,6 +58,7 @@ class MembershipForm extends Component
         $this->member_type = MemberType::PENGHUNI->value;
         $this->join_date = now()->format('Y-m-d');
         $this->no_whatsapp = '';
+        $this->kartu_identitas_file = null;
         $this->email = '';
         $this->password = '';
         $this->password_confirmation = '';
@@ -68,6 +76,8 @@ class MembershipForm extends Component
         ])
             ->assignRole(RoleType::USER->value);
 
+        $kartu_identitas_file = $this->kartu_identitas_file->store(path: 'kartu_identitas', options: 'public');
+
 
         Membership::create([
             'user_id' => $user->id,
@@ -76,6 +86,7 @@ class MembershipForm extends Component
             'join_date' => $validated['join_date'],
             'expired_date' => $validated['join_date'],
             'no_whatsapp' => $validated['no_whatsapp'],
+            'kartu_identitas_file' => $kartu_identitas_file,
             'status' => $validated['status'],
         ]);
 

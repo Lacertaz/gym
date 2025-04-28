@@ -54,8 +54,23 @@
 
         <fieldset class="fieldset">
             <legend class="fieldset-legend">No WhatsApp</legend>
-            <input type="tel" class="input w-full" wire:model="no_whatsapp" placeholder="08xxxxxxxxxx" />
+            <div class="join">
+                <div
+                    class="join-item rounded-l-full border py-2 px-4 flex items-center bg-secondary text-white font-bold">
+                    <span class="mt-0.5">08</span>
+                </div>
+                <input type="tel" class="input join-item" wire:model="no_whatsapp" />
+            </div>
             @error('no_whatsapp')
+                <div class="text-error ml-2">{{ $message }}</div>
+            @enderror
+        </fieldset>
+
+        <fieldset class="fieldset">
+            <label class="fieldset-legend" for="kartu_identitas_file">Kartu Identitas</label>
+            <input type="file" id="kartu_identitas_file" name="kartu_identitas_file" class="file-input w-full"
+                accept="image/*" capture="environment" wire:model='kartu_identitas_file' />
+            @error('name')
                 <div class="text-error ml-2">{{ $message }}</div>
             @enderror
         </fieldset>

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\User;
+use App\Rules\MobilePrefixRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegistrationRequest extends FormRequest
@@ -27,7 +28,8 @@ class RegistrationRequest extends FormRequest
             'gym_package_id' => ['required', 'exists:gym_packages,id'],
             'gender' => ['required'],
             'member_type' => ['required'],
-            'no_whatsapp' => ['required', 'min:10'],
+            'no_whatsapp' => ['required', 'min:10', new MobilePrefixRule],
+            'kartu_identitas_file' => ['required', 'image', 'mimes:jpeg,png,jpg,gif']
         ];
     }
 
@@ -50,6 +52,9 @@ class RegistrationRequest extends FormRequest
             'member_type.required' => 'Jenis member wajib dipilih',
             'no_whatsapp.required' => 'No Whatsapp wajib diisi',
             'no_whatsapp.min' => 'No Whatsapp minimal %s karakter',
+            'kartu_identitas_file.required' => 'Kartu Identitas wajib diisi',
+            'kartu_identitas_file.image' => 'Kartu Identitas hanya dapat berupa gambar',
+            'kartu_identitas_file.mimes' => 'Kartu Identitas hanya dapat berupa gambar',
         ];
     }
 }

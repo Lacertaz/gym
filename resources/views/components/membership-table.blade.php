@@ -18,6 +18,7 @@
                     <th>Jenis Membership</th>
                     <th>Tanggal Join</th>
                     <th>Tanggal Expired</th>
+                    <th>Kartu Identitas</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -52,6 +53,10 @@
                         <td class="text-nowrap">{{ $membership->member_type->label() }}</td>
                         <td class="text-nowrap">{{ $membership->join_date->format('d F Y') }}</td>
                         <td class="text-nowrap">{{ $membership->expired_date->format('d F Y') }}</td>
+                        <td class="text-nowrap">
+                            <img src="{{ asset('storage/' . $membership->kartu_identitas_file) }}"
+                                alt="{{ $membership->user->name }}" class="w-32 h-auto object-cover" lazy />
+                        </td>
                         <td class="text-nowrap text-center">
                             {!! $membership->status_badge !!}
                         </td>

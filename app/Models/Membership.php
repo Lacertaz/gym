@@ -23,6 +23,7 @@ class Membership extends Model
         'join_date',
         'expired_date',
         'no_whatsapp',
+        'kartu_identitas_file',
         'status', // active, expired, new
     ];
 

@@ -48,6 +48,7 @@ class DatabaseSeeder extends Seeder
 
         // INIT GYM PACKAGE & DEFAULT INFO GYM & CAROUSEL START
         $this->call([
+            MobilePrefixSeeder::class,
             GymPackageSeeder::class,
             InfoGymSeeder::class,
             CarouselSeeder::class,
