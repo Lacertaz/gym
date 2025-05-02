@@ -1,13 +1,14 @@
 @php
-$logo_url = route('home');
+    $logo_url = route('home');
     if (request()->routeIs('home')) {
-    $logo_url = "#";
+        $logo_url = '#';
     }
 @endphp
 <nav class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4" x-data="{ info: false, register: false }">
-        <a href="{{ $logo_url }}" class="flex items-center space-x-3 rtl:space-x-reverse" @click="info=false,register=false">
-            {{-- <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo"> --}}
+        <a href="{{ $logo_url }}" class="flex items-center space-x-3 rtl:space-x-reverse"
+            @click="info=false,register=false">
+            <img src="{{ Vite::asset('resources/images/logo.png') }}" class="size-12" alt="Gym Logo">
             <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
                 {{ config('app.name') }}
             </span>
@@ -36,11 +37,13 @@ $logo_url = route('home');
                 <li>
                     <a id="info_link" href="#info"
                         class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-primary-400 md:hover:bg-transparent md:hover:text-primary-400 md:p-0 md:dark:hover:text-primary-500 dark:text-white dark:hover:bg-primary-400 dark:hover:text-primary-400 md:dark:hover:bg-transparent dark:border-gray-700 "
-                        @click="info = true, register = false" :class="{ 'text-primary-500': info }" aria-current="page">Info Paket</a>
+                        @click="info = true, register = false" :class="{ 'text-primary-500': info }"
+                        aria-current="page">Info Paket</a>
                 </li>
                 <li>
                     <a id="register_link" href="#register"
-                        class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-primary-400 md:hover:bg-transparent md:hover:text-primary-400 md:p-0 md:dark:hover:text-primary-500 dark:text-white dark:hover:bg-primary-400 dark:hover:text-primary-400 md:dark:hover:bg-transparent dark:border-gray-700" @click="register = true, info = false" :class="{ 'text-primary-500': register }">Pendaftaran</a>
+                        class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-primary-400 md:hover:bg-transparent md:hover:text-primary-400 md:p-0 md:dark:hover:text-primary-500 dark:text-white dark:hover:bg-primary-400 dark:hover:text-primary-400 md:dark:hover:bg-transparent dark:border-gray-700"
+                        @click="register = true, info = false" :class="{ 'text-primary-500': register }">Pendaftaran</a>
                 </li>
                 <li>
                     <a href="{{ config('app.admin_wa_link') }}"
