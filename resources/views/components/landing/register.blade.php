@@ -80,7 +80,7 @@
             </div>
         </div>
 
-        <div class="relative z-0 w-full mb-5 group">
+        <div class="relative z-0 w-full mb-5 group" id="group_kartu_identitas">
 
             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="kartu_identitas_file">
                 Kartu Identitas
@@ -88,7 +88,7 @@
             <input
                 class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                 id="kartu_identitas_file" name="kartu_identitas_file" type="file" accept="image/*"
-                capture="environment" required />
+                capture="environment" />
 
         </div>
 
@@ -100,24 +100,34 @@
 
 @push('scripts')
     <script>
-        let member_type = document.getElementById('member_type');
+        const member_type = document.getElementById('member_type');
         member_type.addEventListener('change', function() {
             member_type_value = member_type.value;
-            fetch(`{{ route('home.gym_package') }}?member_type=${member_type_value}`)
-                .then(response => response.json())
-                .then(data => {
-                    let gym_package_id = document.getElementById('gym_package_id');
-                    gym_package_id.innerHTML = '<option selected>Pilih Paket</option>';
-                    if (data.length > 0) {
-                        gym_package_id.disabled = false;
-                        data.forEach(element => {
-                            gym_package_id.innerHTML +=
-                                `<option value="${element.id}">${element.name} (Rp.${number_format(element.price)})</option>`;
-                        });
-                    } else {
-                        gym_package_id.disabled = true;
-                    }
-                });
+
+            if (member_type_value == 'penghuni') {
+                document.getElementById('kartu_identitas_file').required = true;
+                document.getElementById('group_kartu_identitas').classList.remove('hidden');
+                document.getElementById('group_kartu_identitas').classList.add('block');
+            } else {
+                document.getElementById('kartu_identitas_file').required = false;
+                document.getElementById('group_kartu_identitas').classList.remove('block');
+                document.getElementById('group_kartu_identitas').classList.add('hidden');
+            }
+
+            fetch(`{{ route('home.gym_package') }}?member_type=${member_type_value}`).then(response => response
+                .json()).then(data => {
+                let gym_package_id = document.getElementById('gym_package_id');
+                gym_package_id.innerHTML = '<option selected>Pilih Paket</option>';
+                if (data.length > 0) {
+                    gym_package_id.disabled = false;
+                    data.forEach(element => {
+                        gym_package_id.innerHTML +=
+                            `<option value="${element.id}">${element.name} (Rp.${number_format(element.price)})</option>`;
+                    });
+                } else {
+                    gym_package_id.disabled = true;
+                }
+            });
         })
 
         function number_format(number) {
@@ -136,7 +146,7 @@
             formData.append('gender', document.getElementById("gender").value);
             formData.append('member_type', document.getElementById("member_type").value);
             formData.append('gym_package_id', document.getElementById("gym_package_id").value);
-            formData.append('no_whatsapp', document.getElementById("no_whatsapp").value);
+            formData.append('no_whatsapp', "08" + document.getElementById("no_whatsapp").value);
             formData.append('kartu_identitas_file', document.getElementById("kartu_identitas_file").files[0]);
 
 

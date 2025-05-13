@@ -44,7 +44,11 @@ class LandingController extends Controller
 
             $new_no_wa = $this->sanitizeNoWhatsapp($request->validated()['no_whatsapp']);
 
-            $kartu_identitas_file = Storage::disk('public')->put('kartu_identitas', $request->file('kartu_identitas_file'));
+            $kartu_identitas_file = null;
+
+            if($request->validated()['member_type'] == 'penghuni') {
+                $kartu_identitas_file = Storage::disk('public')->put('kartu_identitas', $request->file('kartu_identitas_file'));
+            }
 
             $memberships = Membership::create([
                 'user_id' => $user->id,

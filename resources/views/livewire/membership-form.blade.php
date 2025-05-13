@@ -1,5 +1,5 @@
 <div class="card bg-base-200 p-5 w-full max-w-sm mx-auto">
-    <form wire:submit.prevent="save">
+    <form wire:submit.prevent="save" x-data="{ member_type: 'penghuni' }">
         <fieldset class="fieldset">
             <legend class="fieldset-legend">Nama Member</legend>
             <input type="text" class="input w-full" placeholder="Masukan Nama Member" wire:model="name" />
@@ -25,7 +25,7 @@
 
         <fieldset class="fieldset">
             <legend class="fieldset-legend">Tipe Member</legend>
-            <select class="select w-full" wire:model="member_type">
+            <select class="select w-full" wire:model="member_type" x-on:change="member_type = $event.target.value">
                 <option value="{{ \App\MemberType::PENGHUNI->value }}">
                     {{ \App\MemberType::PENGHUNI->label() }}
                 </option>
@@ -66,7 +66,7 @@
             @enderror
         </fieldset>
 
-        <fieldset class="fieldset">
+        <fieldset class="fieldset" x-show="member_type === 'penghuni'">
             <label class="fieldset-legend" for="kartu_identitas_file">Kartu Identitas</label>
             <input type="file" id="kartu_identitas_file" name="kartu_identitas_file" class="file-input w-full"
                 accept="image/*" capture="environment" wire:model='kartu_identitas_file' />

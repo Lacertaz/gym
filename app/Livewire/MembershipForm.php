@@ -31,8 +31,7 @@ class MembershipForm extends Component
     #[Validate('required', message: 'Nomor WhatsApp harus diisi')]
     public string $no_whatsapp;
 
-    #[Validate('required', message: 'Kartu identitas harus diupload')]
-    #[Validate('image', message: 'Kartu identitas hanya dapat berupa gambar')]
+    #[Validate('required_if:member_type,penghuni', message: 'Kartu identitas harus diupload user adalah penghuni')]
     public $kartu_identitas_file;
 
     #[Validate('required', message: 'Email harus diisi')]
@@ -85,7 +84,7 @@ class MembershipForm extends Component
             'member_type' => $validated['member_type'],
             'join_date' => $validated['join_date'],
             'expired_date' => $validated['join_date'],
-            'no_whatsapp' => $validated['no_whatsapp'],
+            'no_whatsapp' => '08'.$validated['no_whatsapp'],
             'kartu_identitas_file' => $kartu_identitas_file,
             'status' => $validated['status'],
         ]);

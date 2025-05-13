@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\User;
 use App\Rules\MobilePrefixRule;
+use Illuminate\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegistrationRequest extends FormRequest
@@ -29,7 +30,7 @@ class RegistrationRequest extends FormRequest
             'gender' => ['required'],
             'member_type' => ['required'],
             'no_whatsapp' => ['required', 'min:10', new MobilePrefixRule],
-            'kartu_identitas_file' => ['required', 'image', 'mimes:jpeg,png,jpg,gif']
+            'kartu_identitas_file' => ['nullable'],
         ];
     }
 
@@ -56,5 +57,11 @@ class RegistrationRequest extends FormRequest
             'kartu_identitas_file.image' => 'Kartu Identitas hanya dapat berupa gambar',
             'kartu_identitas_file.mimes' => 'Kartu Identitas hanya dapat berupa gambar',
         ];
+    }
+
+    public function withValidator(Validator $validator){
+        $validator->sometimes('kartu_identitas_file', ['required', 'image', 'mimes:jpeg,png,jpg,gif'], function ($input) {
+            return $input->member_type === 'penghuni';
+        });
     }
 }
