@@ -10,7 +10,7 @@
     <flux:sidebar sticky stashable class="border-r border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
         <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
-        <a href="{{ route('dashboard') }}" class="mr-5 flex items-center space-x-2" wire:navigate>
+        <a href="{{ route('home') }}" class="mr-5 flex items-center space-x-2" target="_blank">
             <x-app-logo />
         </a>
 
@@ -152,8 +152,10 @@
     @stack('modal')
 
     <script>
-        document.addEventListener('livewire:load', function () {
-            alert('Livewire is loaded and ready!');
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
         });
     </script>
 

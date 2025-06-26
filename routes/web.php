@@ -25,12 +25,14 @@ Route::middleware(['auth'])->group(function () {
         ->only([
             'index',
             'create',
+            'store',
             'edit',
             'destroy',
         ])
         ->names([
             'index' => 'membership',
             'create' => 'membership.create',
+            'store' => 'membership.store',
             'edit' => 'membership.edit',
             'destroy' => 'membership.destroy',
         ])->middleware('role:super_admin|admin');
@@ -77,4 +79,4 @@ Route::middleware(['auth'])->group(function () {
     // Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

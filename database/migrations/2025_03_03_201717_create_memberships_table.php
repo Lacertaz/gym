@@ -17,12 +17,14 @@ return new class extends Migration {
         Schema::create('memberships', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            $table->string('membership_number')->unique(); // FORMAT: RSF00001
             $table->enum('gender', array_column(GenderType::cases(), 'value'));
             $table->enum('member_type', array_column(MemberType::cases(), 'value'));
             $table->date('join_date');
             $table->date('expired_date');
             $table->string('no_whatsapp');
             $table->enum('status', array_column(MembershipStatus::cases(), 'value'))->default(MembershipStatus::NEW ->value);
+            $table->integer('sequence_number');
             $table->timestamps();
         });
     }

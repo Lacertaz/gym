@@ -101,7 +101,7 @@
 @push('scripts')
     <script>
         const member_type = document.getElementById('member_type');
-        member_type.addEventListener('change', function() {
+        member_type.addEventListener('change', function () {
             member_type_value = member_type.value;
 
             if (member_type_value == 'penghuni') {
@@ -116,18 +116,18 @@
 
             fetch(`{{ route('home.gym_package') }}?member_type=${member_type_value}`).then(response => response
                 .json()).then(data => {
-                let gym_package_id = document.getElementById('gym_package_id');
-                gym_package_id.innerHTML = '<option selected>Pilih Paket</option>';
-                if (data.length > 0) {
-                    gym_package_id.disabled = false;
-                    data.forEach(element => {
-                        gym_package_id.innerHTML +=
-                            `<option value="${element.id}">${element.name} (Rp.${number_format(element.price)})</option>`;
-                    });
-                } else {
-                    gym_package_id.disabled = true;
-                }
-            });
+                    let gym_package_id = document.getElementById('gym_package_id');
+                    gym_package_id.innerHTML = '<option selected>Pilih Paket</option>';
+                    if (data.length > 0) {
+                        gym_package_id.disabled = false;
+                        data.forEach(element => {
+                            gym_package_id.innerHTML +=
+                                `<option value="${element.id}">${element.name} (Rp.${number_format(element.price)})</option>`;
+                        });
+                    } else {
+                        gym_package_id.disabled = true;
+                    }
+                });
         })
 
         function number_format(number) {
@@ -135,7 +135,7 @@
         }
 
         let form_registrasi = document.getElementById('form_registrasi');
-        form_registrasi.addEventListener('submit', function(e) {
+        form_registrasi.addEventListener('submit', function (e) {
             e.preventDefault();
 
             let formData = new FormData();
@@ -165,7 +165,7 @@
                 data: formData,
                 contentType: false, // Tidak mengatur header Content-Type
                 processData: false, // Tidak memproses data menjadi string
-                beforeSend: function() {
+                beforeSend: function () {
                     Swal.fire({
                         title: 'Loading...',
                         html: 'Mohon tunggu sebentar...',

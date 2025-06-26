@@ -17,6 +17,7 @@ class Membership extends Model
     use HasFactory;
 
     protected $fillable = [
+        'membership_number',
         'user_id',
         'gender',
         'member_type',
@@ -25,6 +26,7 @@ class Membership extends Model
         'no_whatsapp',
         'kartu_identitas_file',
         'status', // active, expired, new
+        'sequence_number',
     ];
 
     protected $casts = [

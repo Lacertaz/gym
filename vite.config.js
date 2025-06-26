@@ -8,10 +8,8 @@ export default defineConfig({
         laravel({
             input: [
                 "resources/css/landing.css",
-                "resources/css/tiptap.css",
                 "resources/css/app.css",
                 "resources/js/app.js",
-                "resources/js/tiptap.js",
             ],
             refresh: [`resources/views/**/*`],
         }),
@@ -20,5 +18,7 @@ export default defineConfig({
     ],
     server: {
         cors: true,
+        host: "gym2.test",
+        port: 5173,
     },
 });

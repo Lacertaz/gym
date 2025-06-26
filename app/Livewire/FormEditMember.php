@@ -2,14 +2,11 @@
 
 namespace App\Livewire;
 
-use App\RoleType;
 use App\GenderType;
-use App\MemberType;
 use App\Models\User;
 use Livewire\Component;
 use App\Models\Membership;
 use Livewire\Attributes\Validate;
-use Illuminate\Support\Facades\Hash;
 
 class FormEditMember extends Component
 {
@@ -20,9 +17,6 @@ class FormEditMember extends Component
 
     #[Validate('required', message: 'Jenis kelamin harus dipilih')]
     public string $gender;
-
-    #[Validate('required', message: 'Tipe member harus dipilih')]
-    public string $member_type;
 
     #[Validate('required', message: 'Tanggal join harus diisi')]
     public string $join_date;
@@ -42,7 +36,6 @@ class FormEditMember extends Component
         $this->membership = $membership;
         $this->name = $membership->user->name ?? '';
         $this->gender = $membership->gender->value ?? GenderType::MALE->value;
-        $this->member_type = $membership->member_type->value ?? MemberType::PENGHUNI->value;
         $this->join_date = $membership->join_date->format('Y-m-d') ?? now()->format('Y-m-d');
         $this->no_whatsapp = $membership->no_whatsapp ?? '';
         $this->email = $membership->user->email ?? '';
@@ -55,7 +48,6 @@ class FormEditMember extends Component
 
         $this->membership->update([
             'gender' => $validated['gender'],
-            'member_type' => $validated['member_type'],
             'join_date' => $validated['join_date'],
             'no_whatsapp' => $validated['no_whatsapp'],
             'status' => $validated['status'],

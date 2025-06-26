@@ -24,21 +24,6 @@
         </fieldset>
 
         <fieldset class="fieldset">
-            <legend class="fieldset-legend">Tipe Member</legend>
-            <select class="select w-full" wire:model="member_type">
-                <option value="{{ \App\MemberType::PENGHUNI->value }}">
-                    {{ \App\MemberType::PENGHUNI->label() }}
-                </option>
-                <option value="{{ \App\MemberType::NON_PENGHUNI->value }}">
-                    {{ \App\MemberType::NON_PENGHUNI->label() }}
-                </option>
-            </select>
-            @error('member_type')
-                <div class="text-error ml-2">{{ $message }}</div>
-            @enderror
-        </fieldset>
-
-        <fieldset class="fieldset">
             <legend class="fieldset-legend">Tanggal Join</legend>
             <div class="relative">
                 <input type="date" class="input w-full pr-10" wire:model="join_date" />

@@ -12,10 +12,10 @@
 
         @if (session()->has('success'))
             <div class="toast toast-end z-50" x-data="{
-                showToast: true,
-                type: 'success',
-                message: '{{ session('success') }}',
-            }" x-init="setTimeout(() => { $el.classList.add('animate-jump-out') }, 3000)">
+                                showToast: true,
+                                type: 'success',
+                                message: '{{ session('success') }}',
+                            }" x-init="setTimeout(() => { $el.classList.add('animate-jump-out') }, 3000)">
                 <div class="alert alert-success">
                     <span>
                         <i class="fas fa-check-circle"></i>
@@ -39,8 +39,8 @@
                     <h3 class="text-lg font-bold">Reset Password</h3>
                     <fieldset class="fieldset">
                         <legend class="fieldset-legend">Email</legend>
-                        <input type="email" class="input input-ghost w-full readonly"
-                            placeholder="Masukan Email Member" id="email" name="email" readonly />
+                        <input type="email" class="input input-ghost w-full readonly" placeholder="Masukan Email Member"
+                            id="email" name="email" readonly />
                         <div id="email_error" class="text-error ml-2"></div>
                     </fieldset>
                     <fieldset class="fieldset">
@@ -83,21 +83,21 @@
         <script>
             let temp_user_id = null;
 
-            document.getElementById("form_reset_password").addEventListener("submit", function(e) {
+            document.getElementById("form_reset_password").addEventListener("submit", function (e) {
                 e.preventDefault();
                 fetch(`/membership/reset-password/${temp_user_id}`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                'content')
-                        },
-                        body: JSON.stringify({
-                            email: document.getElementById("email").value,
-                            password: document.getElementById("password").value,
-                            password_confirmation: document.getElementById("password_confirmation").value,
-                        })
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                            'content')
+                    },
+                    body: JSON.stringify({
+                        email: document.getElementById("email").value,
+                        password: document.getElementById("password").value,
+                        password_confirmation: document.getElementById("password_confirmation").value,
                     })
+                })
                     .then(response => {
                         if (!response.ok) {
                             return response.json().then(errorData => {

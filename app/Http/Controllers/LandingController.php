@@ -46,19 +46,26 @@ class LandingController extends Controller
 
             $kartu_identitas_file = null;
 
-            if($request->validated()['member_type'] == 'penghuni') {
+            if ($request->validated()['member_type'] == 'penghuni') {
                 $kartu_identitas_file = Storage::disk('public')->put('kartu_identitas', $request->file('kartu_identitas_file'));
             }
 
+            $membership_number_data = $this->generateMembershipNumber();
+
+            $membership_number = $membership_number_data['membership_number'];
+            $sequence_number = $membership_number_data['sequence_number'];
+
             $memberships = Membership::create([
                 'user_id' => $user->id,
+                'membership_number' => $membership_number,
                 'gender' => $request->validated()['gender'],
                 'member_type' => $request->validated()['member_type'],
                 'join_date' => now(),
                 'expired_date' => now(),
                 'no_whatsapp' => $new_no_wa,
                 'kartu_identitas_file' => $kartu_identitas_file,
-                'status' => MembershipStatus::NEW->value,
+                'status' => MembershipStatus::NEW ->value,
+                'sequence_number' => $sequence_number,
             ]);
 
             $gym_package = GymPackage::find($request->validated()['gym_package_id']);
@@ -110,25 +117,40 @@ class LandingController extends Controller
         $no_whatsapp = preg_replace('/[^0-9]/', '', $no_whatsapp);
 
         if (Str::startsWith($no_whatsapp, '+62')) {
-            $no_whatsapp = '0' . Str::substr($no_whatsapp, 3);
+            $no_whatsapp = '0'.Str::substr($no_whatsapp, 3);
         }
 
         if (Str::startsWith($no_whatsapp, '62')) {
-            $no_whatsapp = '0' . Str::substr($no_whatsapp, 2);
+            $no_whatsapp = '0'.Str::substr($no_whatsapp, 2);
         }
 
         if (Str::startsWith($no_whatsapp, '08+62')) {
-            $no_whatsapp = '0' . Str::substr($no_whatsapp, 5);
+            $no_whatsapp = '0'.Str::substr($no_whatsapp, 5);
         }
 
         if (Str::startsWith($no_whatsapp, '0862')) {
-            $no_whatsapp = '0' . Str::substr($no_whatsapp, 4);
+            $no_whatsapp = '0'.Str::substr($no_whatsapp, 4);
         }
 
         if (Str::startsWith($no_whatsapp, '0862')) {
-            $no_whatsapp = '0' . Str::substr($no_whatsapp, 4);
+            $no_whatsapp = '0'.Str::substr($no_whatsapp, 4);
         }
 
         return $no_whatsapp;
+    }
+
+    protected function generateMembershipNumber()
+    {
+        $last_membership = Membership::orderBy('sequence_number', 'desc')->first();
+
+        $sequence_number = $last_membership ? $last_membership->sequence_number + 1 : 1;
+
+        // format RSF00001
+        $membership_number = 'RSF'.str_pad($sequence_number, 5, '0', STR_PAD_LEFT);
+
+        return [
+            'membership_number' => $membership_number,
+            'sequence_number' => $sequence_number
+        ];
     }
 }
