@@ -52,7 +52,7 @@ class CarouselController extends Controller
             ]);
 
             return redirect()->route('manage-carousel')->with('success', 'Carousel berhasil ditambahkan');
-        }catch(Exception $e) {
+        } catch (Exception $e) {
             return back()->withErrors($e->getMessage())->withInput();
         }
     }
@@ -77,7 +77,7 @@ class CarouselController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCarouselRequest $request, Carousel $carousel)
+    public function update(Request $request, Carousel $carousel)
     {
         try {
             $carousel->name = $request->name;
@@ -86,10 +86,11 @@ class CarouselController extends Controller
                 $file_name = Storage::disk('public')->put('carousel', $request->file('image'));
                 $carousel->image = $file_name;
             }
+
             $carousel->save();
 
             return redirect()->route('manage-carousel')->with('success', 'Carousel berhasil diubah');
-        }catch(Exception $e)  {
+        } catch (Exception $e) {
             return back()->withErrors($e->getMessage())->withInput();
         }
     }

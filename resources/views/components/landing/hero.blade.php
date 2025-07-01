@@ -10,7 +10,7 @@
                 <b class="text-primary-500 font-black">Royal Fit Gym & Fitness</b> adalah salah satu tempat gym &
                 fitness
                 terlengkap dan termurah di
-                Bandung.<br />
+                Sentul.<br />
                 Kami menyediakan berbagai macam alat fitness dan gym yang lengkap dan modern. Dilengkapi dengan
                 instruktur
                 yang berpengalaman dan ramah, maka pelanggan akan merasa nyaman dan aman saat berlatih di tempat
@@ -32,50 +32,50 @@
         <div class="mt-5 lg:mt-0 lg:col-span-7 lg:flex">
 
             @if($carousels->count() > 0)
-                <x-landing.carousel :carousels="$carousels" />
+            <x-landing.carousel :carousels="$carousels" />
             @else
 
 
-                <div class="grid gap-4">
+            <div class="grid gap-4">
+                <div>
+                    <img class="h-auto max-w-full rounded-lg object-cover hover:scale-101 transition-all duration-300"
+                        src="{{ Vite::asset('resources/images/image1.jpg') }}" alt="Image 1">
+                </div>
+                <div class="grid grid-cols-8 gap-4">
                     <div>
-                        <img class="h-auto max-w-full rounded-lg object-cover hover:scale-101 transition-all duration-300"
-                            src="{{ Vite::asset('resources/images/image1.jpg') }}" alt="Image 1">
+                        <img class="h-auto max-w-full rounded-lg object-cover hover:scale-105 transition-all duration-300"
+                            src="{{ Vite::asset('resources/images/image2.jpg') }}" alt="Image 2">
                     </div>
-                    <div class="grid grid-cols-8 gap-4">
-                        <div>
-                            <img class="h-auto max-w-full rounded-lg object-cover hover:scale-105 transition-all duration-300"
-                                src="{{ Vite::asset('resources/images/image2.jpg') }}" alt="Image 2">
-                        </div>
-                        <div>
-                            <img class="h-auto max-w-full rounded-lg object-cover hover:scale-105 transition-all duration-300"
-                                src="{{ Vite::asset('resources/images/image3.jpg') }}" alt="Image 3">
-                        </div>
-                        <div>
-                            <img class="h-auto max-w-full rounded-lg object-cover hover:scale-105 transition-all duration-300"
-                                src="{{ Vite::asset('resources/images/image4.jpg') }}" alt="Image 4">
-                        </div>
-                        <div>
-                            <img class="h-auto max-w-full rounded-lg object-cover hover:scale-105 transition-all duration-300"
-                                src="{{ Vite::asset('resources/images/image5.jpg') }}" alt="Image 5">
-                        </div>
-                        <div>
-                            <img class="h-auto max-w-full rounded-lg object-cover hover:scale-105 transition-all duration-300"
-                                src="{{ Vite::asset('resources/images/image6.jpg') }}" alt="Image 6">
-                        </div>
-                        <div>
-                            <img class="h-auto max-w-full rounded-lg object-cover hover:scale-105 transition-all duration-300"
-                                src="{{ Vite::asset('resources/images/image7.jpg') }}" alt="Image 7">
-                        </div>
-                        <div>
-                            <img class="h-auto max-w-full rounded-lg object-cover hover:scale-105 transition-all duration-300"
-                                src="{{ Vite::asset('resources/images/image8.jpg') }}" alt="Image 8">
-                        </div>
-                        <div>
-                            <img class="h-auto max-w-full rounded-lg object-cover hover:scale-105 transition-all duration-300"
-                                src="{{ Vite::asset('resources/images/image9.jpg') }}" alt="Image 9">
-                        </div>
+                    <div>
+                        <img class="h-auto max-w-full rounded-lg object-cover hover:scale-105 transition-all duration-300"
+                            src="{{ Vite::asset('resources/images/image3.jpg') }}" alt="Image 3">
+                    </div>
+                    <div>
+                        <img class="h-auto max-w-full rounded-lg object-cover hover:scale-105 transition-all duration-300"
+                            src="{{ Vite::asset('resources/images/image4.jpg') }}" alt="Image 4">
+                    </div>
+                    <div>
+                        <img class="h-auto max-w-full rounded-lg object-cover hover:scale-105 transition-all duration-300"
+                            src="{{ Vite::asset('resources/images/image5.jpg') }}" alt="Image 5">
+                    </div>
+                    <div>
+                        <img class="h-auto max-w-full rounded-lg object-cover hover:scale-105 transition-all duration-300"
+                            src="{{ Vite::asset('resources/images/image6.jpg') }}" alt="Image 6">
+                    </div>
+                    <div>
+                        <img class="h-auto max-w-full rounded-lg object-cover hover:scale-105 transition-all duration-300"
+                            src="{{ Vite::asset('resources/images/image7.jpg') }}" alt="Image 7">
+                    </div>
+                    <div>
+                        <img class="h-auto max-w-full rounded-lg object-cover hover:scale-105 transition-all duration-300"
+                            src="{{ Vite::asset('resources/images/image8.jpg') }}" alt="Image 8">
+                    </div>
+                    <div>
+                        <img class="h-auto max-w-full rounded-lg object-cover hover:scale-105 transition-all duration-300"
+                            src="{{ Vite::asset('resources/images/image9.jpg') }}" alt="Image 9">
                     </div>
                 </div>
+            </div>
 
             @endif
 

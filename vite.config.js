@@ -16,9 +16,4 @@ export default defineConfig({
         tailwindcss(),
         // tailwindcssAnimated(),
     ],
-    server: {
-        cors: true,
-        host: "gym2.test",
-        port: 5173,
-    },
 });
