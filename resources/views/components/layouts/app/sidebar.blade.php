@@ -73,6 +73,10 @@
 
                             <div class="grid flex-1 text-left text-sm leading-tight">
                                 <span class="truncate font-semibold">{{ auth()->user()->name }}</span>
+                                {{-- @if (auth()->user()->memberships) --}}
+                                <span
+                                    class="truncate font-semibold">{{ auth()->user()->memberships?->membership_number }}</span>
+                                {{-- @endif --}}
                                 <span class="truncate text-xs">{{ auth()->user()->email }}</span>
                             </div>
                         </div>

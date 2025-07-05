@@ -10,6 +10,14 @@
                     <tbody>
                         <tr class="bg-white border-b border-gray-200 text-neutral-900">
                             <th scope="row" class="px-6 py-4">
+                                Membership Number
+                            </th>
+                            <td class="px-6 py-4">
+                                {{ auth()->user()->memberships->membership_number }}
+                            </td>
+                        </tr>
+                        <tr class="bg-white border-b border-gray-200 text-neutral-900">
+                            <th scope="row" class="px-6 py-4">
                                 Tanggal Join
                             </th>
                             <td class="px-6 py-4">
